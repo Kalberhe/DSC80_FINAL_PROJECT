@@ -2,6 +2,18 @@
 layout: default
 title: Predicting League of Legends Match Outcomes
 ---
+<!-- NAVIGATION BAR -->
+<nav class="navbar">
+  <a href="#introduction">Intro</a>
+  <a href="#eda">EDA</a>
+  <a href="#missingness">Missingness</a>
+  <a href="#hypothesis">Hypothesis</a>
+  <a href="#prediction">Prediction</a>
+  <a href="#baseline">Baseline</a>
+  <a href="#finalmodel">Final Model</a>
+  <a href="#fairness">Fairness</a>
+  <a href="#summary">Summary</a>
+</nav>
 
 <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
 
@@ -11,6 +23,20 @@ h1 {
   font-size: 3rem;
 }
 </style>
+<blockquote style="color: #ccc; font-style: italic; text-align: center;">
+   "The stronger early game always wins, unless data proves otherwise."
+</blockquote>
+
+<nav style="position: fixed; top: 0; left: 0; right: 0; background-color: rgba(0,0,0,0.85); padding: 1rem; z-index: 999; text-align: center;">
+  <a href="#introduction" style="margin: 0 1rem; color: #ffd700;">Intro</a>
+  <a href="#eda" style="margin: 0 1rem; color: #ffd700;">EDA</a>
+  <a href="#modeling" style="margin: 0 1rem; color: #ffd700;">Model</a>
+  <a href="#fairness" style="margin: 0 1rem; color: #ffd700;">Fairness</a>
+</nav>
+
+<br><br><br>
+
+
 
 --------------------------------------------------
 
@@ -30,7 +56,7 @@ h1 {
 
 ![Banner](assets/league_banner.jpg)
 
-## Introduction
+## Introduction <a id="introduction"></a>
 
 “Victory is not given — it’s earned by slaying dragons, taking towers, and outmaneuvering your foes.”
 — League of Legends, Summoner’s Creed
@@ -52,13 +78,13 @@ Goals of this project:
 
 Build models that predict match outcomes with high accuracy
 
- Audit those models for bias — especially regarding team side (Blue vs Red)
+ Audit those models for bias, especially regarding team side (Blue vs Red)
 
 Whether you're a data scientist or a die-hard gamer, this project is a case study in how data can decode digital battlegrounds.
 
 ---
 
-## Data Cleaning and Exploratory Data Analysis
+## Data Cleaning and Exploratory Data Analysis <a id="eda"></a>
 
 Before we build any model or draw bold conclusions, we first need to understand and trust the data.
 
@@ -105,7 +131,7 @@ Securing the first tower boosts win rate significantly — more than 70% of thos
 
 ---
 
-## Assessment of Missingness
+## Assessment of Missingness <a id="missingness"></a>
 
 Even in pro-level data, things get messy.
 
@@ -117,7 +143,7 @@ Before trusting our models, we need to ask:
 
 We visualized missing values across all 163 columns to understand the scale of the issue.
 
-Some features — especially those related to post-game statistics like bench, broad jump, and certain gold/xp splits — had significant null percentages, often exceeding 30–50%. Here's a visualization of the top 20:
+Some features — especially those related to post-game statistics like bench, broad jump, and certain gold/xp splits, had significant null percentages, often exceeding 30–50%. Here's a visualization of the top 20:
 
 (Plot would go here if applicable)
 
@@ -148,7 +174,7 @@ It also gave us better confidence in the integrity of the features we’ll use l
 
 ---
 
-## Hypothesis Testing
+## Hypothesis Testing <a id="hypothesis"></a>
 
  Hypothesis Testing
 Before building a predictive model, we wanted to know:
@@ -193,7 +219,7 @@ They do help determine the outcome, and now we have statistical evidence to back
 
 ---
 
-## Framing the Prediction Problem
+## Framing the Prediction Problem <a id="prediction"></a>
 
 With strong evidence that early-game events influence match outcomes, we shifted gears:
 
@@ -242,7 +268,7 @@ These are real signals that reflect teamwork, tempo, and control.
 
 ---
 
-## Baseline Model
+## Baseline Model <a id="baseline"></a>
 
 We started with a simple yet interpretable classifier: **Logistic Regression**.
 
@@ -268,7 +294,7 @@ These findings validate the intuitive link between early leads and overall victo
 
 ---
 
-## Final Model and Performance Evaluation
+## Final Model and Performance Evaluation <a id="finalmodel"></a>
 
 To push for better performance, we upgraded to a **HistGradientBoostingClassifier**.
 
@@ -304,7 +330,8 @@ weighted avg       0.95      0.95      0.95     35681
 This AUC score of 0.990 means the model is very good at distinguishing wins from losses.
 
 ---
-## Fairness Analysis 
+
+## Fairness Analysis <a id="fairness"></a>
 
 Even powerful models can learn unwanted biases. In our case: team side.
 
@@ -323,7 +350,7 @@ We tested models with and without side, and observed slightly higher performance
 
 ---
 
-## Final Summary & Lessons Learned
+## Final Summary <a id="summary"></a>
 
 This project explored the predictive power of early-game events in professional League of Legends matches. Through statistical testing and machine learning, we uncovered that features like securing the first tower or dragon strongly correlate with a team's likelihood of winning. The modeling process, which involved logistic regression and advanced boosting techniques, achieved over 95% accuracy, demonstrating that these early metrics are not just indicators — they’re powerful predictors.
 
