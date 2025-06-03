@@ -1,3 +1,8 @@
+---
+layout: default
+title: Predicting League of Legends Match Outcomes
+---
+
 <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
 
 <style>
@@ -6,18 +11,17 @@ h1 {
   font-size: 3rem;
 }
 </style>
----
 
-layout: default
-title: Predicting League of Legends Match Outcomes
 --------------------------------------------------
 
-#  Predicting League of Legends Match Outcomes
+# Predicting League of Legends Match Outcomes
 
 **Author**: Kalkidan Gebrekirstos
 **Course**: DSC 80 - Spring 2025
 **Project**: Final Project
+
 📓 [Notebook](./template.ipynb)
+
 📁 [GitHub Repo](https://github.com/Kalberhe/DSC80_FINAL_PROJECT)
 
 ---
@@ -84,8 +88,6 @@ One of our first questions:
 
 We plotted win rate by team side:
 
-
-
  Results:
 
 Blue Side Win Rate: 53.1%
@@ -100,7 +102,8 @@ We also examined early-game objectives like securing the first tower, first drag
 Securing the first tower boosts win rate significantly — more than 70% of those teams go on to win.
 
 ---
- ## Assessment of Missingness
+
+## Assessment of Missingness
 
 Even in pro-level data, things get messy.
 
@@ -143,7 +146,7 @@ It also gave us better confidence in the integrity of the features we’ll use l
 
 ---
 
-##  Hypothesis Testing
+## Hypothesis Testing
 
  Hypothesis Testing
 Before building a predictive model, we wanted to know:
@@ -151,11 +154,11 @@ Do early-game objectives actually matter for winning?
 
 So we asked:
 
-💭 "Is securing the first tower associated with a higher chance of winning?"
+ "Is securing the first tower associated with a higher chance of winning?"
 
 This wasn't just a hunch — we ran a proper hypothesis test to find out.
 
-🧪 The Setup
+The Setup
 We used a permutation test to compare the win rates of teams who did vs. did not get the first tower.
 
 Null Hypothesis (H₀): Getting first tower has no effect on winning.
@@ -164,12 +167,12 @@ Alternative (H₁): Teams that get first tower have a higher win rate.
 
 We shuffled the firstTower labels across the dataset and recalculated the win rate difference 1,000 times to simulate the null world.
 
-📊 What We Found
+What We Found
 The actual win rate for teams who secured first tower was noticeably higher than for those who didn’t:
 
-First Tower	Win Rate
-✅ Yes	~63%
-❌ No	~43%
+First Tower Win Rate
+✅ Yes ~63%
+❌ No ~43%
 
 And our p-value?
  Almost zero.
@@ -177,8 +180,6 @@ And our p-value?
 That means it’s extremely unlikely this difference happened by chance.
 
 Here's the permutation distribution:
-
-
 
 The red line is the actual observed difference. As you can see — it lives in the extreme tail of our simulated null distribution.
 
@@ -189,6 +190,7 @@ Early-game objectives like the first tower aren't just flavor — they're signal
 They do help determine the outcome, and now we have statistical evidence to back that up.
 
 ---
+
 ## Framing the Prediction Problem
 
 With strong evidence that early-game events influence match outcomes, we shifted gears:
@@ -197,7 +199,7 @@ With strong evidence that early-game events influence match outcomes, we shifted
 
 ---
 
-###  Defining the Problem
+### Defining the Problem
 
 This is a **supervised classification** task.
 
@@ -209,7 +211,7 @@ The goal is to **predict the outcome** based only on *early* indicators — the 
 
 ---
 
-###  Data Prep
+### Data Prep
 
 We carefully selected features that:
 
@@ -224,7 +226,7 @@ After filtering and imputing missing values, we split the data into:
 
 ---
 
-###  Example Features
+### Example Features
 
 | Feature        | Description                           |
 |----------------|---------------------------------------|
@@ -251,16 +253,16 @@ This model is fast, explains feature importance clearly, and sets a strong bench
 
 This means the model performs significantly better than random guessing and can distinguish between wins and losses based on early-game stats.
 
-###  Interpretation
+### Interpretation
 
 The logistic regression coefficients suggest:
+
 - **`firstTower`**, **`firstBaron`**, and **`teamkills`** are strong positive predictors.
 - **High deaths** early on, unsurprisingly, hurt your chances.
 
 These findings validate the intuitive link between early leads and overall victory.
 
 ![Win Rate by Side](assets/win_rate_by_side.png)
-
 
 ---
 
@@ -269,11 +271,12 @@ These findings validate the intuitive link between early leads and overall victo
 To push for better performance, we upgraded to a **HistGradientBoostingClassifier**.
 
 Why?
+
 - It handles missing data natively.
 - It captures **non-linear relationships** that logistic regression can't.
 - It can interact features in subtle, powerful ways.
 
-###  Final Results
+### Final Results
 
 - ✅ **Accuracy**: **95.4%**
 - 📈 **ROC AUC**: **0.990**
@@ -298,13 +301,15 @@ weighted avg       0.95      0.95      0.95     35681
 
 This AUC score of 0.990 means the model is very good at distinguishing wins from losses.
 
-⚖️ Step 8: Fairness Analysis
+---
+## Fairness Analysis 
+
 Even powerful models can learn unwanted biases. In our case: team side.
 
 In League of Legends, players are randomly assigned to either blue or red side. Despite this, blue side has a slightly higher win rate.
 
-📈 Observed Win Rates by Side
-Team Side	Win Rate
+Observed Win Rates by Side
+Team Side Win Rate
 Blue        53.1%
 Red         46.6%
 
@@ -312,7 +317,7 @@ This ~6.5% gap suggests a slight inherent advantage for blue teams — likely du
 
 If we include side as a feature, the model might "cheat" by learning that blue = better, even if other stats are the same.
 
-❗️ We tested models with and without side, and observed slightly higher performance with it — but at the cost of fairness.
+We tested models with and without side, and observed slightly higher performance with it — but at the cost of fairness.
 
 ---
 
