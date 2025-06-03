@@ -262,7 +262,7 @@ The logistic regression coefficients suggest:
 
 These findings validate the intuitive link between early leads and overall victory.
 
-![Win Rate by Side](assets/win_rate_by_side.png)
+![Win Rate by Side](assets/Win_rate_by_side.png)
 
 ---
 
