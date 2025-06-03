@@ -1,3 +1,5 @@
 markdown: kramdown
 theme: minima
+include:
+  - _includes
 
