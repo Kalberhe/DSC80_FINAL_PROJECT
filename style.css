@@ -1,67 +1,83 @@
-/* Reset basic body layout */
+/* ===== General Layout ===== */
 body {
-  background-color: #0a0a0a;
-  color: #e0e0e0;
-  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+  background-color: #0a0a0a;       /* Dark background */
+  color: #f0f0f0;                  /* Light text */
+  font-family: 'Segoe UI', sans-serif;
   line-height: 1.6;
-  padding: 2rem;
   max-width: 900px;
   margin: auto;
+  padding: 2rem;
 }
 
-/* Headings */
+/* ===== Headings ===== */
 h1, h2, h3 {
-  color: #ffd700; /* gold */
-  border-bottom: 1px solid #333;
-  padding-bottom: 0.5rem;
+  color: #ffd700; /* gold-ish */
   margin-top: 2rem;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.3rem;
 }
 
-/* Section spacing */
-section {
-  margin-bottom: 3rem;
+h1 {
+  font-size: 2.4rem;
 }
 
-/* Links */
+h2 {
+  font-size: 1.8rem;
+}
+
+h3 {
+  font-size: 1.4rem;
+}
+
+/* ===== Links ===== */
 a {
   color: #ffcc00;
   text-decoration: none;
 }
-a:hover {
-  text-decoration: underline;
-}
 
-/* Code blocks */
-pre, code {
-  background-color: #1f1f1f;
-  color: #ffcc00;
-  padding: 0.5em;
+a:hover {
+  color: #ffffff;
+  background-color: #222;
+  padding: 2px 4px;
   border-radius: 4px;
 }
 
-/* Tables */
-table {
-  border-collapse: collapse;
-  width: 100%;
-  margin-top: 1rem;
+/* ===== Code blocks ===== */
+code, pre {
+  background-color: #1e1e1e;
+  color: #ffcc00;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  display: block;
+  overflow-x: auto;
+  margin: 1rem 0;
 }
+
+/* ===== Tables ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
 th, td {
   border: 1px solid #555;
-  padding: 0.5rem;
+  padding: 0.6rem;
   text-align: center;
 }
+
 th {
-  background-color: #222;
+  background-color: #111;
   color: #ffcc00;
 }
 
-/* Images */
+/* ===== Images ===== */
 img {
   max-width: 100%;
   height: auto;
   display: block;
-  margin: 1rem auto;
+  margin: 1.5rem auto;
+  border-radius: 8px;
   border: 2px solid #333;
-  border-radius: 10px;
 }
-
