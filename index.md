@@ -17,7 +17,9 @@ h1 {
 # Predicting League of Legends Match Outcomes
 
 **Author**: Kalkidan Gebrekirstos
+
 **Course**: DSC 80 - Spring 2025
+
 **Project**: Final Project
 
 📓 [Notebook](./template.ipynb)
