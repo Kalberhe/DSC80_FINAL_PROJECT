@@ -92,21 +92,21 @@ Our dataset comes from Oracle’s Elixir, a leading repository of professional L
 
  Initial Dataset Dimensions
 
-Rows: 178,402
+        Rows: 178,402
 
-Columns: 163
+        Columns: 163
 
 Target: result (True = Win, False = Loss)
 
  Cleaning Steps Taken
 
-Converted game outcome (result) into boolean format
+    Converted game outcome (result) into boolean format
 
-Harmonized categorical variables (side, position, etc.)
+    Harmonized categorical variables (side, position, etc.)
 
-Dropped non-informative or redundant columns (e.g., URLs, player IDs)
+    Dropped non-informative or redundant columns (e.g., URLs, player IDs)
 
-Filtered for complete and competitive matches (e.g., removed games with missing firstTower or early surrender)
+    Filtered for complete and competitive matches (e.g., removed games with missing firstTower or early surrender)
 
  Early Impressions from EDA
 
@@ -118,9 +118,9 @@ We plotted win rate by team side:
 
  Results:
 
-Blue Side Win Rate: 53.1%
+        Blue Side Win Rate: 53.1%
 
-Red Side Win Rate: 46.6%
+        Red Side Win Rate: 46.6%
 
 That’s a noticeable gap — nearly 7% — and it hints at an imbalance in map dynamics or drafting advantage, a key point we'll revisit in our fairness audit.
 
@@ -137,15 +137,13 @@ Even in pro-level data, things get messy.
 
 Before trusting our models, we need to ask:
 
-“Are there gaps in the data, and do those gaps say something meaningful?”
+> “Are there gaps in the data, and do those gaps say something meaningful?”
 
  Overview of Missing Data
 
-We visualized missing values across all 163 columns to understand the scale of the issue.
+    We visualized missing values across all 163 columns to understand the scale of the issue.
 
-Some features — especially those related to post-game statistics like bench, broad jump, and certain gold/xp splits, had significant null percentages, often exceeding 30–50%. Here's a visualization of the top 20:
-
-(Plot would go here if applicable)
+Some features, especially those related to post-game statistics like bench, broad jump, and certain gold/xp splits, had significant null percentages, often exceeding 30–50%. Here's a visualization of the top 20:
 
  Are They Missing at Random?
 
@@ -165,9 +163,9 @@ Example: Some missing values may hint at strategic forfeits or outlier matches
 
  How We Handled It
 
-For modeling, we imputed numerical features using the median strategy.
+        For modeling, we imputed numerical features using the median strategy.
 
-For columns tied directly to gameplay timeline (e.g., 25-minute stats), we sometimes dropped them if too sparse or filtered for matches long enough to include them.
+        For columns tied directly to gameplay timeline (e.g., 25-minute stats), we sometimes dropped them if too sparse or filtered for matches long enough to include them.
 
 This step ensured we didn’t let “nulls” introduce hidden bias or mislead our models.
 It also gave us better confidence in the integrity of the features we’ll use later.
@@ -182,16 +180,16 @@ Do early-game objectives actually matter for winning?
 
 So we asked:
 
- "Is securing the first tower associated with a higher chance of winning?"
+ >"Is securing the first tower associated with a higher chance of winning?"
 
-This wasn't just a hunch — we ran a proper hypothesis test to find out.
+This wasn't just a hunch, we ran a proper hypothesis test to find out.
 
 The Setup
 We used a permutation test to compare the win rates of teams who did vs. did not get the first tower.
 
-Null Hypothesis (H₀): Getting first tower has no effect on winning.
+    Null Hypothesis (H₀): Getting first tower has no effect on winning.
 
-Alternative (H₁): Teams that get first tower have a higher win rate.
+    Alternative (H₁): Teams that get first tower have a higher win rate.
 
 We shuffled the firstTower labels across the dataset and recalculated the win rate difference 1,000 times to simulate the null world.
 
@@ -199,21 +197,24 @@ What We Found
 The actual win rate for teams who secured first tower was noticeably higher than for those who didn’t:
 
 First Tower Win Rate
-✅ Yes ~63%
-❌ No ~43%
+
+    ✅ Yes ~63%
+
+    ❌ No ~43%
 
 And our p-value?
- Almost zero.
+
+    Almost zero.
 
 That means it’s extremely unlikely this difference happened by chance.
 
 Here's the permutation distribution:
 
-The red line is the actual observed difference. As you can see — it lives in the extreme tail of our simulated null distribution.
+    The red line is the actual observed difference. As you can see — it lives in the extreme tail of our simulated null distribution.
 
 ✅ Conclusion
 This gave us the green light to move forward with modeling:
-Early-game objectives like the first tower aren't just flavor — they're signal.
+Early-game objectives like the first tower aren't just flavor, they're signal.
 
 They do help determine the outcome, and now we have statistical evidence to back that up.
 
@@ -256,13 +257,13 @@ After filtering and imputing missing values, we split the data into:
 
 ### Example Features
 
-| Feature        | Description                           |
-|----------------|---------------------------------------|
-| `firstTower`   | Did the team get the first tower?     |
-| `firstBaron`   | Did the team secure Baron first?      |
-| `teamkills`    | Total kills by the team early on      |
-| `deaths`       | Total deaths by the team early on     |
-| `assists`      | Total assists by the team             |
+| Feature      | Description                           |
+|--------------|---------------------------------------|
+| `firstTower` | Did the team get the first tower?     |
+| `firstBaron` | Did the team secure Baron first?      |
+| `teamkills`  | Total kills by the team early on      |
+| `deaths`     | Total deaths by the team early on     |
+| `assists`    | Total assists by the team             |
 
 These are real signals that reflect teamwork, tempo, and control.
 
