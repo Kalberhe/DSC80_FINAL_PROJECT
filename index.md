@@ -2,18 +2,6 @@
 layout: default
 title: Predicting League of Legends Match Outcomes
 ---
-<!-- NAVIGATION BAR -->
-<nav class="navbar">
-  <a href="#introduction">Intro</a>
-  <a href="#eda">EDA</a>
-  <a href="#missingness">Missingness</a>
-  <a href="#hypothesis">Hypothesis</a>
-  <a href="#prediction">Prediction</a>
-  <a href="#baseline">Baseline</a>
-  <a href="#finalmodel">Final Model</a>
-  <a href="#fairness">Fairness</a>
-  <a href="#summary">Summary</a>
-</nav>
 
 <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
 
@@ -30,8 +18,13 @@ h1 {
 <nav style="position: fixed; top: 0; left: 0; right: 0; background-color: rgba(0,0,0,0.85); padding: 1rem; z-index: 999; text-align: center;">
   <a href="#introduction" style="margin: 0 1rem; color: #ffd700;">Intro</a>
   <a href="#eda" style="margin: 0 1rem; color: #ffd700;">EDA</a>
-  <a href="#modeling" style="margin: 0 1rem; color: #ffd700;">Model</a>
+  <a href="#missingness" style="margin: 0 1rem; color: #ffd700;">Missingness</a>
+  <a href="#hypothesis" style="margin: 0 1rem; color: #ffd700;">Hypothesis</a>
+  <a href="#prediction" style="margin: 0 1rem; color: #ffd700;">Prediction</a>
+  <a href="#baseline" style="margin: 0 1rem; color: #ffd700;">Baseline</a>
   <a href="#fairness" style="margin: 0 1rem; color: #ffd700;">Fairness</a>
+  <a href="#finalmodel" style="margin: 0 1rem; color: #ffd700;">Final Model</a>
+  <a href="#summary" style="margin: 0 1rem; color: #ffd700;">Summary</a>
 </nav>
 
 <br><br><br>
