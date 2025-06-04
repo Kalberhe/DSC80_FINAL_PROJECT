@@ -36,7 +36,7 @@ h1 {
 **Links**: [Notebook](./template.ipynb) • [GitHub Repo](https://github.com/Kalberhe/DSC80_FINAL_PROJECT)
 
 <blockquote style="color: #ccc; font-style: italic; text-align: center;">
-   "The stronger early game always wins, unless data proves otherwise."
+   "This World Is Changing... We Decide Into What." - Kai'sha
 </blockquote>
 
 ![Banner](assets/league_banner.jpg)
