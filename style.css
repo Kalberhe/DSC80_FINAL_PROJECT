@@ -1,26 +1,52 @@
+
 /* ===== General Layout ===== */
 body {
   background: url('https://i.pinimg.com/736x/88/36/1f/88361fa8d487c65c01fdc87a5c32b33c.jpg') no-repeat center center fixed;
   background-size: cover;
+  background-color: #000; /* fallback base */
   position: relative;
-  background-color: #000; /* fallback dark base */
+  font-family: 'Segoe UI', sans-serif;
+  color: #f0f0f0;
+  margin: 0;
+  padding: 0;
 }
 
-/* Faint overlay to reduce background intensity */
+/* Faint dark overlay over background */
 body::before {
   content: "";
   position: fixed;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   height: 100%;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.93);  /* more opaque for fainter bg */
+  background-color: rgba(0, 0, 0, 0.93); /* controls how dim the image is */
   z-index: -1;
 }
 
+/* ===== Page Content Wrapper ===== */
+main {
+  max-width: 1000px;
+  margin: auto;
+  padding: 2rem;
+}
 
-/* Add breathing room below navbar when scrolling to anchors */
+/* ===== Smooth Scrolling ===== */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Anchor spacing so headers aren't hidden behind nav */
+[id]::before {
+  content: "";
+  display: block;
+  height: 100px;
+  margin-top: -100px;
+  visibility: hidden;
+}
+
+/* ===== Headings ===== */
 h1, h2, h3 {
-  scroll-margin-top: 100px;  /* Prevent title hiding behind nav */
+  scroll-margin-top: 100px;
   color: #ffd700;
   margin-top: 2rem;
   border-bottom: 1px solid #333;
@@ -122,17 +148,4 @@ img {
 img:hover {
   transform: scale(1.02);
   box-shadow: 0 0 15px #ffcc00;
-}
-
-/* ===== Smooth Scrolling ===== */
-html {
-  scroll-behavior: smooth;
-}
-/* Offset section headers so they're not hidden behind the fixed nav */
-[id]::before {
-  content: "";
-  display: block;
-  height: 80px; /* height of your navbar */
-  margin-top: -80px;
-  visibility: hidden;
 }
