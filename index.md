@@ -29,8 +29,6 @@ h1 {
 
 <br><br><br>
 
---------------------------------------------------
-
 # Predicting League of Legends Match Outcomes
 
 **Author**: Kalkidan Gebrekirstos
@@ -47,96 +45,84 @@ h1 {
 ![Banner](assets/league_banner.jpg)
 
 <div id="introduction" class="section-anchor"></div>
+
 ## Introduction
 
-“Victory is not given — it’s earned by slaying dragons, taking towers, and outmaneuvering your foes.”
-— League of Legends, Summoner’s Creed
+"Victory is not given — it's earned by slaying dragons, taking towers, and outmaneuvering your foes."
+— League of Legends, Summoner's Creed
 
 In professional League of Legends, the outcome of a match is often shaped by early-game decisions:
 Did your team take the first tower? Secure the first dragon? Get the first blood?
 
 This project dives deep into data from thousands of pro LoL matches to answer one central question:
 
- Can we predict match outcomes using early-game statistics?
+**Can we predict match outcomes using early-game statistics?**
 
 We combine exploratory data analysis, hypothesis testing, machine learning, and fairness auditing to understand how early decisions ripple into victory — or defeat.
 
-Goals of this project:
+**Goals of this project:**
 
- Identify early-game events that significantly correlate with winning
-
- Test strategic hypotheses (e.g., “Does first tower predict win rate?”)
-
-Build models that predict match outcomes with high accuracy
-
- Audit those models for bias, especially regarding team side (Blue vs Red)
+- Identify early-game events that significantly correlate with winning
+- Test strategic hypotheses (e.g., "Does first tower predict win rate?")
+- Build models that predict match outcomes with high accuracy
+- Audit those models for bias, especially regarding team side (Blue vs Red)
 
 Whether you're a data scientist or a die-hard gamer, this project is a case study in how data can decode digital battlegrounds.
 
-
 <div id="eda" class="section-anchor"></div>
+
 ## Exploratory Data Analysis
 
 Before we build any model or draw bold conclusions, we first need to understand and trust the data.
 
-Our dataset comes from Oracle’s Elixir, a leading repository of professional League of Legends match data, spanning over 10 years of global competitive play.
+Our dataset comes from Oracle's Elixir, a leading repository of professional League of Legends match data, spanning over 10 years of global competitive play.
 
- Initial Dataset Dimensions
+**Initial Dataset Dimensions:**
+- Rows: 178,402
+- Columns: 163
+- Target: result (True = Win, False = Loss)
 
-        Rows: 178,402
+**Cleaning Steps Taken:**
+- Converted game outcome (result) into boolean format
+- Harmonized categorical variables (side, position, etc.)
+- Dropped non-informative or redundant columns (e.g., URLs, player IDs)
+- Filtered for complete and competitive matches (e.g., removed games with missing firstTower or early surrender)
 
-        Columns: 163
-
-Target: result (True = Win, False = Loss)
-
- Cleaning Steps Taken
-
-    Converted game outcome (result) into boolean format
-
-    Harmonized categorical variables (side, position, etc.)
-
-    Dropped non-informative or redundant columns (e.g., URLs, player IDs)
-
-    Filtered for complete and competitive matches (e.g., removed games with missing firstTower or early surrender)
-
- Early Impressions from EDA
+**Early Impressions from EDA:**
 
 One of our first questions:
 
-“Does the side a team plays on (Blue vs Red) affect their chances of winning?”
+"Does the side a team plays on (Blue vs Red) affect their chances of winning?"
 
 We plotted win rate by team side:
 
- Results:
+**Results:**
+- Blue Side Win Rate: 53.1%
+- Red Side Win Rate: 46.6%
 
-        Blue Side Win Rate: 53.1%
-
-        Red Side Win Rate: 46.6%
-
-That’s a noticeable gap — nearly 7% — and it hints at an imbalance in map dynamics or drafting advantage, a key point we'll revisit in our fairness audit.
+That's a noticeable gap — nearly 7% — and it hints at an imbalance in map dynamics or drafting advantage, a key point we'll revisit in our fairness audit.
 
 We also examined early-game objectives like securing the first tower, first dragon, and first blood. These had striking correlations with match outcomes, especially:
+
 ![Win Rate by Side](assets/win_rate_by_firsttower.png)
 
 Securing the first tower boosts win rate significantly — more than 70% of those teams go on to win.
 
-
 <div id="missingness" class="section-anchor"></div>
-## Assessment of Missingness
 
-## Assessment of Missingness <a id="missingness"></a>
+## Assessment of Missingness
 
 Even in pro-level data, things get messy.
 
 Before trusting our models, we need to ask:
 
-> “Are there gaps in the data, and do those gaps say something meaningful?”
+> "Are there gaps in the data, and do those gaps say something meaningful?"
 
 ### Overview of Missing Data
 
 We visualized missing values across all 163 columns to understand the scale of the issue.
 
-Some features, especially those related to post-game statistics like bench, broad jump, and certain gold/xp splits, had significant null percentages, often exceeding 30–50%. Here’s a visualization of the top 20:
+Some features, especially those related to post-game statistics like bench, broad jump, and certain gold/xp splits, had significant null percentages, often exceeding 30–50%. Here's a visualization of the top 20:
 
 ### Are They Missing at Random?
 
@@ -153,50 +139,53 @@ We categorized columns into three groups:
 For modeling, we imputed numerical features using the **median strategy**.
 For columns tied directly to gameplay timeline (e.g., 25-minute stats), we sometimes dropped them if too sparse or filtered for matches long enough to include them.
 
-This step ensured we didn’t let “nulls” introduce hidden bias or mislead our models.
-
+This step ensured we didn't let "nulls" introduce hidden bias or mislead our models.
 
 <div id="hypothesis" class="section-anchor"></div>
+
 ## Hypothesis Testing
 
 Before building a predictive model, we wanted to know:
 
-Do early-game objectives actually matter for winning?
+**Do early-game objectives actually matter for winning?**
 
 So we asked:
 
-“Is securing the first tower associated with a higher chance of winning?”
+"Is securing the first tower associated with a higher chance of winning?"
 
 This wasn't just a hunch — we ran a proper hypothesis test to find out.
 
-  The Setup
+### The Setup
+
 We used a permutation test to compare win rates of teams who did vs. did not get the first tower.
 
-Null Hypothesis (H₀): Getting first tower has no effect on winning.
-
-Alternative Hypothesis (H₁): Teams that get first tower have a higher win rate.
+- **Null Hypothesis (H₀)**: Getting first tower has no effect on winning.
+- **Alternative Hypothesis (H₁)**: Teams that get first tower have a higher win rate.
 
 We shuffled the firstTower labels across the dataset and recalculated the win rate difference 1,000 times to simulate the null world.
 
-  What We Found
-The actual win rate for teams who secured first tower was noticeably higher than for those who didn’t:
+### What We Found
 
-First Tower Secured	Win Rate
-✅ Yes	~63%
-❌ No	~43%
+The actual win rate for teams who secured first tower was noticeably higher than for those who didn't:
 
-p-value: Almost zero
+| First Tower Secured | Win Rate |
+|---------------------|----------|
+| ✅ Yes              | ~63%     |
+| ❌ No               | ~43%     |
 
-This means it’s extremely unlikely this difference happened by chance.
+**p-value**: Almost zero
 
-  Conclusion
+This means it's extremely unlikely this difference happened by chance.
+
+### Conclusion
+
 This gave us the green light to move forward with modeling.
-Early-game objectives like the first tower aren’t just flavor — they’re signal.
+Early-game objectives like the first tower aren't just flavor — they're signal.
 
 They help determine the outcome, and now we have statistical evidence to back that up.
 
-
 <div id="prediction" class="section-anchor"></div>
+
 ## Framing the Prediction Problem
 
 With strong evidence that early-game events influence match outcomes, we shifted gears:
@@ -213,20 +202,18 @@ This is a **supervised classification** task.
 
 The goal is to **predict the outcome** based only on *early* indicators — the kind of info that coaches or analysts might use during a live game.
 
-
 ### Data Prep
 
 We carefully selected features that:
 
-- **Occur before or around 20 minutes**, so they’re genuinely "early-game"
-- Are **numeric or binary**, and don’t leak the outcome
+- **Occur before or around 20 minutes**, so they're genuinely "early-game"
+- Are **numeric or binary**, and don't leak the outcome
 - Have reasonable missingness that we can handle
 
 After filtering and imputing missing values, we split the data into:
 
 - **Training set (80%)** for model learning
 - **Test set (20%)** to evaluate real-world performance
-
 
 ### Example Features
 
@@ -240,8 +227,8 @@ After filtering and imputing missing values, we split the data into:
 
 These are real signals that reflect teamwork, tempo, and control.
 
-
 <div id="baseline" class="section-anchor"></div>
+
 ## Baseline Model
 
 We started with a simple yet interpretable classifier: **Logistic Regression**.
@@ -264,11 +251,10 @@ The logistic regression coefficients suggest:
 
 These findings validate the intuitive link between early leads and overall victory.
 
-
 ![Win Rate by Side](assets/Win_rate_by_side.png)
 
-
 <div id="finalmodel" class="section-anchor"></div>
+
 ## Final Model
 
 To push for better performance, we upgraded to a **HistGradientBoostingClassifier**.
@@ -284,7 +270,7 @@ Why?
 - ✅ **Accuracy**: **95.4%**
 - 📈 **ROC AUC**: **0.990**
 
-```plaintext
+```
               precision    recall  f1-score   support
 
        False       0.96      0.95      0.95     17902
@@ -296,26 +282,28 @@ weighted avg       0.95      0.95      0.95     35681
 
 [[17025   877]
  [  764 17015]]
+```
 
 ✅ The model rarely confuses wins and losses, and handles both classes well.
 
 📊 ROC Curve
 
-
 This AUC score of 0.990 means the model is very good at distinguishing wins from losses.
 
-
 <div id="fairness" class="section-anchor"></div>
+
 ## Fairness Analysis
 
 Even powerful models can learn unwanted biases. In our case: team side.
 
 In League of Legends, players are randomly assigned to either blue or red side. Despite this, blue side has a slightly higher win rate.
 
-Observed Win Rates by Side
-Team Side Win Rate
-Blue        53.1%
-Red         46.6%
+**Observed Win Rates by Side:**
+
+| Team Side | Win Rate |
+|-----------|----------|
+| Blue      | 53.1%    |
+| Red       | 46.6%    |
 
 This ~6.5% gap suggests a slight inherent advantage for blue teams — likely due to map layout or first-pick drafting.
 
@@ -323,11 +311,11 @@ If we include side as a feature, the model might "cheat" by learning that blue =
 
 We tested models with and without side, and observed slightly higher performance with it — but at the cost of fairness.
 
-
 <div id="summary" class="section-anchor"></div>
+
 ## Final Summary
 
-This project explored the predictive power of early-game events in professional League of Legends matches. Through statistical testing and machine learning, we uncovered that features like securing the first tower or dragon strongly correlate with a team's likelihood of winning. The modeling process, which involved logistic regression and advanced boosting techniques, achieved over 95% accuracy, demonstrating that these early metrics are not just indicators — they’re powerful predictors.
+This project explored the predictive power of early-game events in professional League of Legends matches. Through statistical testing and machine learning, we uncovered that features like securing the first tower or dragon strongly correlate with a team's likelihood of winning. The modeling process, which involved logistic regression and advanced boosting techniques, achieved over 95% accuracy, demonstrating that these early metrics are not just indicators — they're powerful predictors.
 
 Beyond prediction, we also critically examined fairness. Our analysis revealed a subtle but consistent bias favoring the blue side, which could introduce skew into real-time coaching tools or analytical pipelines. While our models were accurate, they inherit the patterns present in the data, highlighting the importance of understanding not just what the model predicts, but why. This project ultimately blends data science and esports to show how performance insights can be extracted from competitive gaming — with the right caution and context.
 
