@@ -29,8 +29,6 @@ h1 {
 
 <br><br><br>
 
-
-
 --------------------------------------------------
 
 # Predicting League of Legends Match Outcomes
@@ -45,7 +43,6 @@ h1 {
 
 📁 [GitHub Repo](https://github.com/Kalberhe/DSC80_FINAL_PROJECT)
 
----
 
 ![Banner](assets/league_banner.jpg)
 
@@ -76,7 +73,6 @@ Build models that predict match outcomes with high accuracy
 
 Whether you're a data scientist or a die-hard gamer, this project is a case study in how data can decode digital battlegrounds.
 
----
 
 <div id="eda" class="section-anchor"></div>
 ## Exploratory Data Analysis
@@ -124,10 +120,11 @@ We also examined early-game objectives like securing the first tower, first drag
 
 Securing the first tower boosts win rate significantly — more than 70% of those teams go on to win.
 
----
 
 <div id="missingness" class="section-anchor"></div>
 ## Assessment of Missingness
+
+## Assessment of Missingness <a id="missingness"></a>
 
 Even in pro-level data, things get messy.
 
@@ -135,38 +132,29 @@ Before trusting our models, we need to ask:
 
 > “Are there gaps in the data, and do those gaps say something meaningful?”
 
- Overview of Missing Data
+### Overview of Missing Data
 
-    We visualized missing values across all 163 columns to understand the scale of the issue.
+We visualized missing values across all 163 columns to understand the scale of the issue.
 
-Some features, especially those related to post-game statistics like bench, broad jump, and certain gold/xp splits, had significant null percentages, often exceeding 30–50%. Here's a visualization of the top 20:
+Some features, especially those related to post-game statistics like bench, broad jump, and certain gold/xp splits, had significant null percentages, often exceeding 30–50%. Here’s a visualization of the top 20:
 
- Are They Missing at Random?
+### Are They Missing at Random?
 
 We categorized columns into three groups:
 
-MCAR (Missing Completely at Random):
-Example: bench and other performance metrics from special events
-→ These were often missing due to data collection constraints rather than in-game logic.
+- **MCAR (Missing Completely at Random)**: Example: `bench` and other performance metrics from special events → These were often missing due to data collection constraints rather than in-game logic.
 
-MAR (Missing at Random):
-Example: golddiffat20 missing if the game ended before 20 minutes
-→ These are informative. Their absence reflects gameplay duration or match state.
+- **MAR (Missing at Random)**: Example: `golddiffat20` missing if the game ended before 20 minutes → These are informative. Their absence reflects gameplay duration or match state.
 
-NMAR (Not Missing at Random):
-Example: Some missing values may hint at strategic forfeits or outlier matches
-→ Trickier. These could influence outcome if not handled carefully.
+- **NMAR (Not Missing at Random)**: Example: Some missing values may hint at strategic forfeits or outlier matches → Trickier. These could influence outcome if not handled carefully.
 
- How We Handled It
+### How We Handled It
 
-        For modeling, we imputed numerical features using the median strategy.
-
-        For columns tied directly to gameplay timeline (e.g., 25-minute stats), we sometimes dropped them if too sparse or filtered for matches long enough to include them.
+For modeling, we imputed numerical features using the **median strategy**.
+For columns tied directly to gameplay timeline (e.g., 25-minute stats), we sometimes dropped them if too sparse or filtered for matches long enough to include them.
 
 This step ensured we didn’t let “nulls” introduce hidden bias or mislead our models.
-It also gave us better confidence in the integrity of the features we’ll use later.
 
----
 
 <div id="hypothesis" class="section-anchor"></div>
 ## Hypothesis Testing
@@ -207,7 +195,6 @@ Early-game objectives like the first tower aren’t just flavor — they’re si
 
 They help determine the outcome, and now we have statistical evidence to back that up.
 
----
 
 <div id="prediction" class="section-anchor"></div>
 ## Framing the Prediction Problem
@@ -220,15 +207,12 @@ With strong evidence that early-game events influence match outcomes, we shifted
 
 This is a **supervised classification** task.
 
-- **Input (`X`)**: Features that are known during or shortly after the early-game phase  
-  (e.g., `firstTower`, `firstDragon`, `firstBaron`, `teamkills`, `deaths`, `assists`)
-
-- **Target (`y`)**: Whether the team **won** the game (`True` / `False`)
+- **Input (X)**: Features that are known during or shortly after the early-game phase  
+  (e.g., *firstTower*, *firstDragon*, *firstBaron*, *teamkills*, *deaths*, *assists*)
+- **Target (y)**: Whether the team **won** the game (**True** / **False**)
 
 The goal is to **predict the outcome** based only on *early* indicators — the kind of info that coaches or analysts might use during a live game.
 
-
----
 
 ### Data Prep
 
@@ -256,7 +240,6 @@ After filtering and imputing missing values, we split the data into:
 
 These are real signals that reflect teamwork, tempo, and control.
 
----
 
 <div id="baseline" class="section-anchor"></div>
 ## Baseline Model
@@ -276,7 +259,7 @@ This means the model performs significantly better than random guessing and can 
 
 The logistic regression coefficients suggest:
 
-- `firstTower`, `firstBaron`, and `teamkills` are strong positive predictors.
+- *firstTower*, *firstBaron*, and *teamkills* are strong positive predictors.
 - **High deaths** early on, unsurprisingly, hurt your chances.
 
 These findings validate the intuitive link between early leads and overall victory.
@@ -284,7 +267,6 @@ These findings validate the intuitive link between early leads and overall victo
 
 ![Win Rate by Side](assets/Win_rate_by_side.png)
 
----
 
 <div id="finalmodel" class="section-anchor"></div>
 ## Final Model
@@ -322,7 +304,6 @@ weighted avg       0.95      0.95      0.95     35681
 
 This AUC score of 0.990 means the model is very good at distinguishing wins from losses.
 
----
 
 <div id="fairness" class="section-anchor"></div>
 ## Fairness Analysis
@@ -342,7 +323,6 @@ If we include side as a feature, the model might "cheat" by learning that blue =
 
 We tested models with and without side, and observed slightly higher performance with it — but at the cost of fairness.
 
----
 
 <div id="summary" class="section-anchor"></div>
 ## Final Summary
@@ -351,6 +331,5 @@ This project explored the predictive power of early-game events in professional 
 
 Beyond prediction, we also critically examined fairness. Our analysis revealed a subtle but consistent bias favoring the blue side, which could introduce skew into real-time coaching tools or analytical pipelines. While our models were accurate, they inherit the patterns present in the data, highlighting the importance of understanding not just what the model predicts, but why. This project ultimately blends data science and esports to show how performance insights can be extracted from competitive gaming — with the right caution and context.
 
----
 
 
