@@ -57,7 +57,7 @@ footer h1:hover {
 **Links**: [Notebook](./template.ipynb) • [GitHub Repo](https://github.com/Kalberhe/DSC80_FINAL_PROJECT)
 
 <blockquote style="color: #ccc; font-style: italic; text-align: center;">
-   "This World Is Changing... We Decide Into What." — Kai'sha
+   "This World Is Changing... We Decide Into What." — Kai'sa
 </blockquote>
 
 ![Banner](assets/league_banner.jpg)
