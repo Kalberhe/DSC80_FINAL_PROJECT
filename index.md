@@ -174,49 +174,41 @@ It also gave us better confidence in the integrity of the features we’ll use l
 
 ## Hypothesis Testing <a id="hypothesis"></a>
 
- Hypothesis Testing
 Before building a predictive model, we wanted to know:
+
 Do early-game objectives actually matter for winning?
 
 So we asked:
 
- >"Is securing the first tower associated with a higher chance of winning?"
+“Is securing the first tower associated with a higher chance of winning?”
 
-This wasn't just a hunch, we ran a proper hypothesis test to find out.
+This wasn't just a hunch — we ran a proper hypothesis test to find out.
 
-The Setup
-We used a permutation test to compare the win rates of teams who did vs. did not get the first tower.
+  The Setup
+We used a permutation test to compare win rates of teams who did vs. did not get the first tower.
 
-    Null Hypothesis (H₀): Getting first tower has no effect on winning.
+Null Hypothesis (H₀): Getting first tower has no effect on winning.
 
-    Alternative (H₁): Teams that get first tower have a higher win rate.
+Alternative Hypothesis (H₁): Teams that get first tower have a higher win rate.
 
 We shuffled the firstTower labels across the dataset and recalculated the win rate difference 1,000 times to simulate the null world.
 
-What We Found
+  What We Found
 The actual win rate for teams who secured first tower was noticeably higher than for those who didn’t:
 
-First Tower Win Rate
+First Tower Secured	Win Rate
+✅ Yes	~63%
+❌ No	~43%
 
-    ✅ Yes ~63%
+p-value: Almost zero
 
-    ❌ No ~43%
+This means it’s extremely unlikely this difference happened by chance.
 
-And our p-value?
+  Conclusion
+This gave us the green light to move forward with modeling.
+Early-game objectives like the first tower aren’t just flavor — they’re signal.
 
-    Almost zero.
-
-That means it’s extremely unlikely this difference happened by chance.
-
-Here's the permutation distribution:
-
-    The red line is the actual observed difference. As you can see — it lives in the extreme tail of our simulated null distribution.
-
-✅ Conclusion
-This gave us the green light to move forward with modeling:
-Early-game objectives like the first tower aren't just flavor, they're signal.
-
-They do help determine the outcome, and now we have statistical evidence to back that up.
+They help determine the outcome, and now we have statistical evidence to back that up.
 
 ---
 
@@ -226,17 +218,17 @@ With strong evidence that early-game events influence match outcomes, we shifted
 
 > 🎯 *Can we build a model that predicts whether a team will win based on early-game stats?*
 
----
-
 ### Defining the Problem
 
 This is a **supervised classification** task.
 
 - **Input (`X`)**: Features that are known during or shortly after the early-game phase  
   (e.g., `firstTower`, `firstDragon`, `firstBaron`, `teamkills`, `deaths`, `assists`)
-- **Target (`y`)**: Whether the team **won** the game (`True`/`False`)
+
+- **Target (`y`)**: Whether the team **won** the game (`True` / `False`)
 
 The goal is to **predict the outcome** based only on *early* indicators — the kind of info that coaches or analysts might use during a live game.
+
 
 ---
 
@@ -285,10 +277,11 @@ This means the model performs significantly better than random guessing and can 
 
 The logistic regression coefficients suggest:
 
-- **`firstTower`**, **`firstBaron`**, and **`teamkills`** are strong positive predictors.
+- `firstTower`, `firstBaron`, and `teamkills` are strong positive predictors.
 - **High deaths** early on, unsurprisingly, hurt your chances.
 
 These findings validate the intuitive link between early leads and overall victory.
+
 
 ![Win Rate by Side](assets/Win_rate_by_side.png)
 
