@@ -49,7 +49,8 @@ h1 {
 
 ![Banner](assets/league_banner.jpg)
 
-## Introduction <a id="introduction"></a>
+<div id="introduction" class="section-anchor"></div>
+## Introduction
 
 “Victory is not given — it’s earned by slaying dragons, taking towers, and outmaneuvering your foes.”
 — League of Legends, Summoner’s Creed
@@ -77,7 +78,8 @@ Whether you're a data scientist or a die-hard gamer, this project is a case stud
 
 ---
 
-## Data Cleaning and Exploratory Data Analysis <a id="eda"></a>
+<div id="eda" class="section-anchor"></div>
+## Exploratory Data Analysis
 
 Before we build any model or draw bold conclusions, we first need to understand and trust the data.
 
@@ -124,7 +126,8 @@ Securing the first tower boosts win rate significantly — more than 70% of thos
 
 ---
 
-## Assessment of Missingness <a id="missingness"></a>
+<div id="missingness" class="section-anchor"></div>
+## Assessment of Missingness
 
 Even in pro-level data, things get messy.
 
@@ -165,7 +168,8 @@ It also gave us better confidence in the integrity of the features we’ll use l
 
 ---
 
-## Hypothesis Testing <a id="hypothesis"></a>
+<div id="hypothesis" class="section-anchor"></div>
+## Hypothesis Testing
 
 Before building a predictive model, we wanted to know:
 
@@ -205,7 +209,8 @@ They help determine the outcome, and now we have statistical evidence to back th
 
 ---
 
-## Framing the Prediction Problem <a id="prediction"></a>
+<div id="prediction" class="section-anchor"></div>
+## Framing the Prediction Problem
 
 With strong evidence that early-game events influence match outcomes, we shifted gears:
 
@@ -253,7 +258,8 @@ These are real signals that reflect teamwork, tempo, and control.
 
 ---
 
-## Baseline Model <a id="baseline"></a>
+<div id="baseline" class="section-anchor"></div>
+## Baseline Model
 
 We started with a simple yet interpretable classifier: **Logistic Regression**.
 
@@ -280,7 +286,8 @@ These findings validate the intuitive link between early leads and overall victo
 
 ---
 
-## Final Model and Performance Evaluation <a id="finalmodel"></a>
+<div id="finalmodel" class="section-anchor"></div>
+## Final Model
 
 To push for better performance, we upgraded to a **HistGradientBoostingClassifier**.
 
@@ -317,7 +324,8 @@ This AUC score of 0.990 means the model is very good at distinguishing wins from
 
 ---
 
-## Fairness Analysis <a id="fairness"></a>
+<div id="fairness" class="section-anchor"></div>
+## Fairness Analysis
 
 Even powerful models can learn unwanted biases. In our case: team side.
 
@@ -336,7 +344,8 @@ We tested models with and without side, and observed slightly higher performance
 
 ---
 
-## Final Summary <a id="summary"></a>
+<div id="summary" class="section-anchor"></div>
+## Final Summary
 
 This project explored the predictive power of early-game events in professional League of Legends matches. Through statistical testing and machine learning, we uncovered that features like securing the first tower or dragon strongly correlate with a team's likelihood of winning. The modeling process, which involved logistic regression and advanced boosting techniques, achieved over 95% accuracy, demonstrating that these early metrics are not just indicators — they’re powerful predictors.
 
