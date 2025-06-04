@@ -3,13 +3,20 @@ body {
   background: url('https://i.pinimg.com/736x/88/36/1f/88361fa8d487c65c01fdc87a5c32b33c.jpg') no-repeat center center fixed;
   background-size: cover;
   position: relative;
-
-  color: #f0f0f0;
-  font-family: 'Segoe UI', sans-serif;
-  line-height: 1.6;
-  margin: 0;
-  padding: 2rem;
+  background-color: #000; /* fallback dark base */
 }
+
+/* Faint overlay to reduce background intensity */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.93);  /* more opaque for fainter bg */
+  z-index: -1;
+}
+
 
 /* Add breathing room below navbar when scrolling to anchors */
 h1, h2, h3 {
@@ -120,4 +127,12 @@ img:hover {
 /* ===== Smooth Scrolling ===== */
 html {
   scroll-behavior: smooth;
+}
+/* Offset section headers so they're not hidden behind the fixed nav */
+[id]::before {
+  content: "";
+  display: block;
+  height: 80px; /* height of your navbar */
+  margin-top: -80px;
+  visibility: hidden;
 }
