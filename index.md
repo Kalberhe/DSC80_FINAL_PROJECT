@@ -9,6 +9,27 @@ h1 {
   font-family: 'UnifrakturCook', cursive;
   font-size: 3rem;
 }
+
+/* Hide the footer project name list */
+.site-footer ul,
+.site-footer li,
+footer ul,
+footer li {
+  display: none !important;
+}
+
+/* Style the main footer title as a link */
+.site-footer h1,
+footer h1 {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.site-footer h1:hover,
+footer h1:hover {
+  color: #ffffff !important;
+  text-shadow: 0 0 5px #ffd700;
+}
 </style>
 
 <nav style="position: fixed; top: 0; left: 0; right: 0; background-color: #000000; padding: 1rem; z-index: 999; text-align: center;">
