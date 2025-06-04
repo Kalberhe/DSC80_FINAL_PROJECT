@@ -1,17 +1,20 @@
 /* ===== General Layout ===== */
 body {
-  background-color: #0a0a0a;       /* Dark background */
-  color: #f0f0f0;                  /* Light text */
+  background: url('https://i.pinimg.com/736x/88/36/1f/88361fa8d487c65c01fdc87a5c32b33c.jpg') no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+
+  color: #f0f0f0;
   font-family: 'Segoe UI', sans-serif;
   line-height: 1.6;
-  max-width: 900px;
-  margin: auto;
+  margin: 0;
   padding: 2rem;
 }
 
-/* ===== Headings ===== */
+/* Add breathing room below navbar when scrolling to anchors */
 h1, h2, h3 {
-  color: #ffd700; /* gold-ish */
+  scroll-margin-top: 100px;  /* Prevent title hiding behind nav */
+  color: #ffd700;
   margin-top: 2rem;
   border-bottom: 1px solid #333;
   padding-bottom: 0.3rem;
@@ -27,6 +30,32 @@ h2 {
 
 h3 {
   font-size: 1.4rem;
+}
+
+/* ===== Navigation Bar ===== */
+nav.navbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 1rem;
+  gap: 1.2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+
+nav.navbar a {
+  color: #ffd700;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+nav.navbar a:hover {
+  color: white;
+  text-shadow: 0 0 5px #ffd700;
 }
 
 /* ===== Links ===== */
@@ -78,6 +107,17 @@ img {
   height: auto;
   display: block;
   margin: 1.5rem auto;
-  border-radius: 8px;
+  border-radius: 10px;
   border: 2px solid #333;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 15px #ffcc00;
+}
+
+/* ===== Smooth Scrolling ===== */
+html {
+  scroll-behavior: smooth;
 }
