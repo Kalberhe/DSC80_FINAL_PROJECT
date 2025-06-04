@@ -19,7 +19,7 @@ body::before {
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.93); /* controls how dim the image is */
+  background-color: rgba(0, 0, 0, 0.75); /* controls how dim the image is */
   z-index: -1;
 }
 
