@@ -11,9 +11,6 @@ h1 {
   font-size: 3rem;
 }
 </style>
-<blockquote style="color: #ccc; font-style: italic; text-align: center;">
-   "The stronger early game always wins, unless data proves otherwise."
-</blockquote>
 
 <nav style="position: fixed; top: 0; left: 0; right: 0; background-color: rgba(0,0,0,0.85); padding: 1rem; z-index: 999; text-align: center;">
   <a href="#introduction" style="margin: 0 1rem; color: #ffd700;">Intro</a>
@@ -37,10 +34,11 @@ h1 {
 
 **Project**: Final Project
 
-📓 [Notebook](./template.ipynb)
+[Notebook](./template.ipynb) | [GitHub Repo](https://github.com/Kalberhe/DSC80_FINAL_PROJECT)
 
-📁 [GitHub Repo](https://github.com/Kalberhe/DSC80_FINAL_PROJECT)
-
+<blockquote style="color: #ccc; font-style: italic; text-align: center;">
+   "The stronger early game always wins, unless data proves otherwise."
+</blockquote>
 
 ![Banner](assets/league_banner.jpg)
 
@@ -286,7 +284,9 @@ weighted avg       0.95      0.95      0.95     35681
 
 ✅ The model rarely confuses wins and losses, and handles both classes well.
 
-📊 ROC Curve
+📊 **ROC Curve**
+
+![ROC Curve](assets/roc_curve.png)
 
 This AUC score of 0.990 means the model is very good at distinguishing wins from losses.
 
@@ -318,6 +318,3 @@ We tested models with and without side, and observed slightly higher performance
 This project explored the predictive power of early-game events in professional League of Legends matches. Through statistical testing and machine learning, we uncovered that features like securing the first tower or dragon strongly correlate with a team's likelihood of winning. The modeling process, which involved logistic regression and advanced boosting techniques, achieved over 95% accuracy, demonstrating that these early metrics are not just indicators — they're powerful predictors.
 
 Beyond prediction, we also critically examined fairness. Our analysis revealed a subtle but consistent bias favoring the blue side, which could introduce skew into real-time coaching tools or analytical pipelines. While our models were accurate, they inherit the patterns present in the data, highlighting the importance of understanding not just what the model predicts, but why. This project ultimately blends data science and esports to show how performance insights can be extracted from competitive gaming — with the right caution and context.
-
-
-
