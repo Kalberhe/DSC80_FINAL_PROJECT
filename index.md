@@ -11,7 +11,7 @@ h1 {
 }
 </style>
 
-<nav style="position: fixed; top: 0; left: 0; right: 0; background-color: rgba(0,0,0,0.85); padding: 1rem; z-index: 999; text-align: center;">
+<nav style="position: fixed; top: 0; left: 0; right: 0; background-color: #000000; padding: 1rem; z-index: 999; text-align: center;">
   <a href="#introduction" style="margin: 0 1rem; color: #ffd700;">Intro</a>
   <a href="#eda" style="margin: 0 1rem; color: #ffd700;">EDA</a>
   <a href="#missingness" style="margin: 0 1rem; color: #ffd700;">Missingness</a>
@@ -36,7 +36,7 @@ h1 {
 **Links**: [Notebook](./template.ipynb) • [GitHub Repo](https://github.com/Kalberhe/DSC80_FINAL_PROJECT)
 
 <blockquote style="color: #ccc; font-style: italic; text-align: center;">
-   "This World Is Changing... We Decide Into What." - Kai'sha
+   "The stronger early game always wins, unless data proves otherwise."
 </blockquote>
 
 ![Banner](assets/league_banner.jpg)
