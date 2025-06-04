@@ -36,7 +36,7 @@ h1 {
 **Links**: [Notebook](./template.ipynb) • [GitHub Repo](https://github.com/Kalberhe/DSC80_FINAL_PROJECT)
 
 <blockquote style="color: #ccc; font-style: italic; text-align: center;">
-   "This World Is Changing... We Decide Into What." - Kai'sha
+   "This World Is Changing... We Decide Into What." — Kai'sha
 </blockquote>
 
 ![Banner](assets/league_banner.jpg)
@@ -45,7 +45,7 @@ h1 {
 
 ## Introduction
 
-"Victory is not given — it's earned by slaying dragons, taking towers, and outmaneuvering your foes."
+"Victory is not given, it's earned by slaying dragons, taking towers, and outmaneuvering your foes."
 — League of Legends, Summoner's Creed
 
 In professional League of Legends, the outcome of a match is often shaped by early-game decisions:
@@ -97,13 +97,13 @@ We plotted win rate by team side:
 - Blue Side Win Rate: 53.1%
 - Red Side Win Rate: 46.6%
 
-That's a noticeable gap — nearly 7% — and it hints at an imbalance in map dynamics or drafting advantage, a key point we'll revisit in our fairness audit.
+That's a noticeable gap, nearly 7% , and it hints at an imbalance in map dynamics or drafting advantage, a key point we'll revisit in our fairness audit.
 
 We also examined early-game objectives like securing the first tower, first dragon, and first blood. These had striking correlations with match outcomes, especially:
 
 ![Win Rate by Side](assets/win_rate_by_firsttower.png)
 
-Securing the first tower boosts win rate significantly — more than 70% of those teams go on to win.
+Securing the first tower boosts win rate significantly more than 70% of those teams go on to win.
 
 <div id="missingness" class="section-anchor"></div>
 
@@ -150,7 +150,7 @@ So we asked:
 
 "Is securing the first tower associated with a higher chance of winning?"
 
-This wasn't just a hunch — we ran a proper hypothesis test to find out.
+This wasn't just a hunch we ran a proper hypothesis test to find out.
 
 ### The Setup
 
@@ -177,7 +177,7 @@ This means it's extremely unlikely this difference happened by chance.
 ### Conclusion
 
 This gave us the green light to move forward with modeling.
-Early-game objectives like the first tower aren't just flavor — they're signal.
+Early-game objectives like the first tower aren't just flavor they're signal.
 
 They help determine the outcome, and now we have statistical evidence to back that up.
 
@@ -197,7 +197,7 @@ This is a **supervised classification** task.
   (e.g., *firstTower*, *firstDragon*, *firstBaron*, *teamkills*, *deaths*, *assists*)
 - **Target (y)**: Whether the team **won** the game (**True** / **False**)
 
-The goal is to **predict the outcome** based only on *early* indicators — the kind of info that coaches or analysts might use during a live game.
+The goal is to **predict the outcome** based only on *early* indicators the kind of info that coaches or analysts might use during a live game.
 
 ### Data Prep
 
@@ -304,16 +304,16 @@ In League of Legends, players are randomly assigned to either blue or red side. 
 | Blue      | 53.1%    |
 | Red       | 46.6%    |
 
-This ~6.5% gap suggests a slight inherent advantage for blue teams — likely due to map layout or first-pick drafting.
+This ~6.5% gap suggests a slight inherent advantage for blue teams likely due to map layout or first-pick drafting.
 
 If we include side as a feature, the model might "cheat" by learning that blue = better, even if other stats are the same.
 
-We tested models with and without side, and observed slightly higher performance with it — but at the cost of fairness.
+We tested models with and without side, and observed slightly higher performance with it, but at the cost of fairness.
 
 <div id="summary" class="section-anchor"></div>
 
 ## Final Summary
 
-This project explored the predictive power of early-game events in professional League of Legends matches. Through statistical testing and machine learning, we uncovered that features like securing the first tower or dragon strongly correlate with a team's likelihood of winning. The modeling process, which involved logistic regression and advanced boosting techniques, achieved over 95% accuracy, demonstrating that these early metrics are not just indicators — they're powerful predictors.
+This project explored the predictive power of early-game events in professional League of Legends matches. Through statistical testing and machine learning, we uncovered that features like securing the first tower or dragon strongly correlate with a team's likelihood of winning. The modeling process, which involved logistic regression and advanced boosting techniques, achieved over 95% accuracy, demonstrating that these early metrics are not just indicators, they're powerful predictors.
 
-Beyond prediction, we also critically examined fairness. Our analysis revealed a subtle but consistent bias favoring the blue side, which could introduce skew into real-time coaching tools or analytical pipelines. While our models were accurate, they inherit the patterns present in the data, highlighting the importance of understanding not just what the model predicts, but why. This project ultimately blends data science and esports to show how performance insights can be extracted from competitive gaming — with the right caution and context.
+Beyond prediction, we also critically examined fairness. Our analysis revealed a subtle but consistent bias favoring the blue side, which could introduce skew into real-time coaching tools or analytical pipelines. While our models were accurate, they inherit the patterns present in the data, highlighting the importance of understanding not just what the model predicts, but why. This project ultimately blends data science and esports to show how performance insights can be extracted from competitive gaming, with the right caution and context.
