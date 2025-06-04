@@ -18,8 +18,8 @@ h1 {
   <a href="#hypothesis" style="margin: 0 1rem; color: #ffd700;">Hypothesis</a>
   <a href="#prediction" style="margin: 0 1rem; color: #ffd700;">Prediction</a>
   <a href="#baseline" style="margin: 0 1rem; color: #ffd700;">Baseline</a>
-  <a href="#fairness" style="margin: 0 1rem; color: #ffd700;">Fairness</a>
   <a href="#finalmodel" style="margin: 0 1rem; color: #ffd700;">Final Model</a>
+  <a href="#fairness" style="margin: 0 1rem; color: #ffd700;">Fairness</a>
   <a href="#summary" style="margin: 0 1rem; color: #ffd700;">Summary</a>
 </nav>
 
