@@ -253,7 +253,6 @@ After filtering and imputing missing values, we split the data into:
 - **Training set (80%)** for model learning
 - **Test set (20%)** to evaluate real-world performance
 
----
 
 ### Example Features
 
