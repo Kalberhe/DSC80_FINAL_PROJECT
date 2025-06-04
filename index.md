@@ -1,6 +1,5 @@
 ---
 layout: default
-title: Predicting League of Legends Match Outcomes
 ---
 
 <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
@@ -34,10 +33,10 @@ h1 {
 
 **Project**: Final Project
 
-[Notebook](./template.ipynb) | [GitHub Repo](https://github.com/Kalberhe/DSC80_FINAL_PROJECT)
+**Links**: [Notebook](./template.ipynb) • [GitHub Repo](https://github.com/Kalberhe/DSC80_FINAL_PROJECT)
 
 <blockquote style="color: #ccc; font-style: italic; text-align: center;">
-   "The stronger early game always wins, unless data proves otherwise."
+   "This World Is Changing... We Decide Into What." - Kai'sha
 </blockquote>
 
 ![Banner](assets/league_banner.jpg)
