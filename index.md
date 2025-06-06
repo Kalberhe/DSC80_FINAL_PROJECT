@@ -76,7 +76,7 @@ This project dives deep into data from thousands of pro LoL matches to answer on
 
 **Can we predict match outcomes using early-game statistics?**
 
-We combine exploratory data analysis, hypothesis testing, machine learning, and fairness auditing to understand how early decisions ripple into victory — or defeat.
+We combine exploratory data analysis, hypothesis testing, machine learning, and fairness auditing to understand how early decisions ripple into victory, or defeat.
 
 **Goals of this project:**
 
